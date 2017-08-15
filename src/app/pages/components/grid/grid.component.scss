@@ -1,0 +1,76 @@
+@mixin not($ignorItens...) {
+    @if (length($ignorItens) == 1){
+        $ignorItens: nth($ignorItens,1);
+    }
+    $notItens: '';
+    @each $not in $ignorItens {
+        $notItens: $notItens + ':not(#{$not})';
+    }
+
+    &#{$notItens} {
+        @content;
+    }
+}
+
+
+
+.container-box {
+    display: grid;
+    grid-template-columns: 180px 1fr; // quantidade e tamanho das colunas
+    grid-template-rows: 591px; // quantidade e tamanho das linhas
+    grid-column-gap: 0.3px; // espaço entre as colunos
+    grid-row-gap: 0.4px; //espaço entre as linhas
+    grid-template-areas: 'aside main'
+                         ;
+    padding-top: 60px;
+}
+
+
+  .box {
+    @include not(header, aside, footer) {
+      background-color: blueviolet;
+    }
+    min-height: 100%;
+
+  }
+
+
+
+header {
+  background-color: gray;
+  position: fixed;
+  height: 60px;
+  width: 100%;
+
+}
+
+aside {
+  background-color: gray;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  box-sizing: border-box;
+
+}
+
+main {
+  grid-area: main;
+
+
+
+}
+
+footer {
+  position: fixed;
+  background-color: gray;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 60px;
+
+}
+
+
+
+
+
